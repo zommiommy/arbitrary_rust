@@ -10,3 +10,5 @@ mod primitives;
 mod strings;
 mod collections;
 mod tuples;
+
+pub use derive_arbitrary::*;

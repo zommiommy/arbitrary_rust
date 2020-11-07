@@ -20,8 +20,6 @@ It supports `bool, f32, f64, u8, i8, u16, i16, u32, i32, u64, i64, u128, i128, V
 and tuples from 0 to 5 elements, and of-course nesting of any of these types.
 In the future I might add other types and containers.
 
-The next step will be introducing automatic derivation with `#[derive(Arbitrary)]`, once I figure out were people hide the documentation about procedural macros.
-
 # Examples
 
 Reproducibility yay.
@@ -39,37 +37,11 @@ We can actually write a corpus!
 ```rust
 use arbitrary_rust::Arbitrary;
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Arbitrary)]
 pub struct Rgb {
     pub r: u8,
     pub g: u8,
     pub b: u8,
-}
-
-impl Arbitrary for Rgb {
-    fn to_bytes(&self) -> Vec<u8> {
-        let mut result = Vec::new();
-        result.append(
-            &mut self.r.to_bytes()
-        );
-        result.append(
-            &mut self.g.to_bytes()
-        );
-        result.append(
-            &mut self.b.to_bytes()
-        );
-        result
-    }
-
-    fn build_from_bytes(data: &[u8]) -> (Self, &[u8]){
-        let (r, data) = u8::build_from_bytes(data);
-        let (g, data) = u8::build_from_bytes(data);
-        let (b, data) = u8::build_from_bytes(data);
-        (
-            Rgb{r, g, b},
-            data
-        )
-    }
 }
 
 fn main() {
@@ -89,37 +61,11 @@ Debugging a crash!
 ```rust
 use arbitrary_rust::Arbitrary;
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Arbitrary)]
 pub struct Rgb {
     pub r: u8,
     pub g: u8,
     pub b: u8,
-}
-
-impl Arbitrary for Rgb {
-    fn to_bytes(&self) -> Vec<u8> {
-        let mut result = Vec::new();
-        result.append(
-            &mut self.r.to_bytes()
-        );
-        result.append(
-            &mut self.g.to_bytes()
-        );
-        result.append(
-            &mut self.b.to_bytes()
-        );
-        result
-    }
-
-    fn build_from_bytes(data: &[u8]) -> (Self, &[u8]){
-        let (r, data) = u8::build_from_bytes(data);
-        let (g, data) = u8::build_from_bytes(data);
-        let (b, data) = u8::build_from_bytes(data);
-        (
-            Rgb{r, g, b},
-            data
-        )
-    }
 }
 
 fn main() {
