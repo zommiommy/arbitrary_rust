@@ -28,9 +28,10 @@ Reproducibility yay.
 ```rust
 use arbitrary_rust::Arbitrary;
 
+let obj = (true, false, 1.0);
 assert_eq!(
-    (true, false, 1.0),
-    <(bool, bool, f64)>::from_bytes(&(true, false, 1.0).to_bytes()[..])
+    obj,
+    <(bool, bool, f64)>::from_bytes(&obj.to_bytes()[..])
 );
 ```
 
