@@ -1,5 +1,5 @@
 [package]
-name = "arbitrary"
+name = "arbitrary_rust"
 version = "0.1.0"
 authors = ["zom <tommaso.fontana.96@gmail.com>"]
 edition = "2018"
