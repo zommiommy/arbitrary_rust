@@ -13,7 +13,8 @@ pub trait Arbitrary: Sized {
     // value to bytes
     fn to_bytes(&self) -> Vec<u8>;
     // bytes to value
-    fn from_bytes(data: &[u8]);
+    fn from_bytes(data: Vec<u8>);
+    // private method
     // bytes to value and bytes not used
     fn build_from_bytes(data: &[u8]) -> (Self, &[u8]);
 }
@@ -31,7 +32,7 @@ use arbitrary_rust::Arbitrary;
 let obj = (true, false, 1.0);
 assert_eq!(
     obj,
-    <(bool, bool, f64)>::from_bytes(&obj.to_bytes()[..])
+    <(bool, bool, f64)>::from_bytes(obj.to_bytes())
 );
 ```
 
