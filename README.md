@@ -1,4 +1,6 @@
 # arbitrary_rust
+[![Build Status](https://travis-ci.com/zommiommy/arbitrary_rust.svg?branch=main)](https://travis-ci.com/zommiommy/arbitrary_rust) [![](https://img.shields.io/badge/rust-stable-green)](https://github.com/LucaCappelletti94/ensmallen_graph/tree/master/graph)
+
 My implementation of [Arbitrary](https://docs.rs/arbitrary/0.4.7/arbitrary/), 
 
 # WHY? Just use that crate omg
