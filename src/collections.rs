@@ -3,10 +3,14 @@ use super::*;
 impl<T: Arbitrary> Arbitrary for Vec<T> {
     fn to_bytes(&self) -> Vec<u8> {
         let mut result = Vec::new();
+        let len = min(self.len(), MAX_COLLECTIONS_SIZE);
         result.append(
-            &mut self.len().to_bytes()
+            &mut len.to_bytes()
         );
-        for v in self.iter() {
+        for (i, v) in self.iter().enumerate() {
+            if i == len {
+                break;
+            }
             result.append(
                 &mut v.to_bytes()
             );
@@ -16,7 +20,7 @@ impl<T: Arbitrary> Arbitrary for Vec<T> {
 
     fn build_from_bytes(data: &[u8]) -> (Self, &[u8]) {
         let (mut len, mut data) = usize::build_from_bytes(data);
-        len = min(len, MAX_COLLECTIONS_SIZE / std::mem::size_of::<T>());
+        len = min(len, MAX_COLLECTIONS_SIZE);
         let mut result = Vec::with_capacity(len);
         for _ in 0..len {
             let (value, new_data) = T::build_from_bytes(data);

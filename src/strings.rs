@@ -18,10 +18,14 @@ impl Arbitrary for char {
 impl Arbitrary for String {
     fn to_bytes(&self) -> Vec<u8> {
         let mut result = Vec::new();
+        let len =  min(self.len(), MAX_COLLECTIONS_SIZE);
         result.append(
-            &mut self.len().to_bytes()
+            &mut len.to_bytes()
         );
-        for c in self.chars() {
+        for (i, c) in self.chars().enumerate() {
+            if i == len{
+                break;
+            }
             result.append(
                 &mut c.to_bytes()
             );

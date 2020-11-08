@@ -1,6 +1,19 @@
 extern crate arbitrary_rust;
 use arbitrary_rust::Arbitrary;
 
+#[derive(Arbitrary, Debug, PartialEq)]
+struct Nested {
+    nested: Option::<u64>,
+    name: String,
+    
+}
+#[derive(Arbitrary, Debug, PartialEq)]
+struct Test {
+    nested: Nested,
+    result: Result::<f64, bool>,
+    array: Vec::<i128>
+}
+
 #[test]
 fn test(){
     // unsigned
@@ -158,4 +171,17 @@ fn test(){
         (1,),
         <(u64,)>::from_bytes((1u64,).to_bytes())
     );
+    // struct
+    let test = Test{
+        nested: Nested{
+            nested:Some(u64::MAX),
+            name: "CARDAMOMO".to_string()
+        },
+        result: Ok(69.420),
+        array: vec![1, 2, 3, u64::MAX as i128 + 1337]
+    };
+    assert_eq!(
+        test,
+        <Test>::from_bytes(test.to_bytes())
+    )
 }
