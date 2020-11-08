@@ -15,7 +15,8 @@ impl<T: Arbitrary> Arbitrary for Vec<T> {
     }
 
     fn build_from_bytes(data: &[u8]) -> (Self, &[u8]) {
-        let (len, mut data) = usize::build_from_bytes(data);
+        let (mut len, mut data) = usize::build_from_bytes(data);
+        len = min(len, MAX_COLLECTIONS_SIZE / std::mem::size_of::<T>());
         let mut result = Vec::with_capacity(len);
         for _ in 0..len {
             let (value, new_data) = T::build_from_bytes(data);

@@ -30,7 +30,8 @@ impl Arbitrary for String {
     }
 
     fn build_from_bytes(data: &[u8]) -> (Self, &[u8]) {
-        let (len, mut data) = usize::build_from_bytes(data);
+        let (mut len, mut data) = usize::build_from_bytes(data);
+        len = min(len, MAX_COLLECTIONS_SIZE);
         let mut result = String::with_capacity(len);
         for _ in 0..len {
             let (value, new_data) = char::build_from_bytes(data);
