@@ -2,7 +2,7 @@ use std::cmp::min;
 // max dimension for a collection. 128Mib should be enought
 // this is needed because fuzzing could try to allocate
 // tera of memory and die of OOM.
-static MAX_COLLECTIONS_SIZE: usize = 128 * 1024 * 1024;
+static MAX_COLLECTIONS_SIZE: usize = 1024 * 1024;
 
 pub trait Arbitrary: Sized {
     /// Convert the object to bytes
